@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+var bounds = new google.maps.LatLngBounds();
+var color_codes = [null,"#06164F","#F32B6F","#0FF01E","#FF0000","#07B1AA","#A1D220","#4FF3A9","#4F5B83"]
+var circles = []
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    //center: new google.maps.LatLng('{{src_lat}}','{{src_lon}}'),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker;
+  var i=0;
+
+   {% for mark in data %}
+   {% if mark.lat  %}
+   console.log("{{mark.c_id}}");
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng('{{mark.lat}}', '{{mark.lon}}'),
+      map: map
+    });
+    bounds.extend(marker.position);
+    google.maps.event.addListener(marker, 'click', (function(marker) {
+      return function() {
+    //    infowindow.setContent("<font color='#0000FF'>"+"{{mark.c_id}}"+"</font>");
+      //  infowindow.open(map, marker);
+      }
+    })(marker));
+    var cityCircle = new google.maps.Circle({
+  strokeColor:'#00FF00',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#00FF00',
+  fillOpacity: 0.50,
+  map: map,
+  center: {lat: {{mark.lat}}, lng: {{mark.lon}}},
+  radius:  800
+});
+cityCircle.strokeColor=color_codes['{{mark.c_id}}'];
+cityCircle.fillColor=color_codes[parseInt('{{mark.c_id}}')];
+circles.push(cityCircle);
+    {% endif %}
+  {% endfor %}
+  map.fitBounds(bounds);
+</script>

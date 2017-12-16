@@ -1,0 +1,40 @@
+<html>
+<body>
+  <div  id="map" style="width: 1000px; height: 550px;"></div>
+<script src='https://maps.googleapis.com/maps/api/js?key={{googlemapskey}}'
+        type="text/javascript"></script>
+<script type="text/javascript">
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+  //  center: new google.maps.LatLng('12.842071','77.657837'),
+    disableDefaultUI: false,
+    mapTypeId: 'roadmap'
+  });
+var trafficLayer = new google.maps.TrafficLayer();
+      trafficLayer.setMap(map);
+</script>
+{% include 'mapajax.html' %}
+<div>
+<font color="#06164F">Default</font>
+<br>
+<font color="#F32B6F">Street Lightning</font>
+<br>
+<font color="#0FF01E">Engineering</font>
+<br>
+<font color="#FF0000">Public Health</font>
+<br>
+<font color="#07B1AA">Administration</font>
+<br>
+<font color="#A1D220">Town Planning</font>
+<br>
+<font color="#4FF3A9">Revenue</font>
+<br>
+<font color="#4F5B83">Water Supply</font>
+<br>
+
+
+</div>
+
+</body>
+</html>
